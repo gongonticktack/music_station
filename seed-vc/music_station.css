@@ -1,0 +1,118 @@
+:root {
+  color-scheme: dark;
+  --ms-bg: #0b0d19;
+  --ms-surface: #181b2d;
+  --ms-border: #333650;
+  --ms-ink: #f4f2ff;
+  --ms-muted: #b8bbd0;
+  --ms-pink: #ed71b1;
+  --ms-violet: #a58aff;
+  --ms-cyan: #76d6df;
+}
+
+body, .gradio-container {
+  background: radial-gradient(circle at 5% 0%, #252039 0, transparent 30%),
+              radial-gradient(circle at 95% 5%, #152d3b 0, transparent 32%),
+              var(--ms-bg) !important;
+  color: var(--ms-ink) !important;
+}
+
+.gradio-container {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 20px clamp(14px, 2vw, 36px) 36px !important;
+  --body-background-fill: var(--ms-bg);
+  --body-text-color: var(--ms-ink);
+  --block-background-fill: var(--ms-surface);
+  --block-border-color: var(--ms-border);
+  --block-label-background-fill: var(--ms-surface);
+  --block-label-text-color: var(--ms-ink);
+  --block-title-text-color: var(--ms-ink);
+  --block-info-text-color: var(--ms-muted);
+  --input-background-fill: #101322;
+  --input-border-color: var(--ms-border);
+  --input-placeholder-color: var(--ms-muted);
+  --button-secondary-background-fill: #25283e;
+  --button-secondary-border-color: #444764;
+  --button-secondary-text-color: var(--ms-ink);
+  --button-secondary-background-fill-hover: #333650;
+  --border-color-primary: var(--ms-border);
+  --background-fill-primary: var(--ms-surface);
+  --background-fill-secondary: #101322;
+  --color-accent-soft: #332641;
+}
+
+.gradio-container footer { display: none !important; }
+.gradio-container .main { max-width: none !important; }
+.gradio-container label, .gradio-container p { color: var(--ms-ink); }
+.gradio-container .info, .gradio-container .hint { color: var(--ms-muted) !important; }
+
+.ms-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 42px clamp(24px, 3vw, 54px);
+  border-radius: 28px;
+  color: var(--ms-ink);
+  background: linear-gradient(115deg, #352045, #292044 55%, #183741);
+  border: 1px solid #514464;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, .23);
+  margin-bottom: 28px;
+}
+.ms-hero:after {
+  content: '♫';
+  position: absolute;
+  right: 5%;
+  top: -75px;
+  font-size: 260px;
+  color: rgba(255,255,255,.07);
+  transform: rotate(-15deg);
+  pointer-events: none;
+}
+.ms-eyebrow { color: #efbbdc; font-size: 12px; font-weight: 850; letter-spacing: .24em; }
+.ms-hero h1 {
+  color: #fff;
+  font-size: clamp(46px, 7vw, 80px);
+  letter-spacing: -.065em;
+  line-height: 1.02;
+  margin: 15px 0 18px;
+  font-weight: 900;
+  position: relative;
+  z-index: 1;
+}
+.ms-hero h1 span:first-child { color: #f5a9d1; }
+.ms-sparkle { font-size: .58em; vertical-align: top; margin-left: 12px; color: #b7a0ff; }
+.ms-hero p { color: #e0daeb; font-size: 16px; font-weight: 600; margin: 0; position: relative; z-index: 1; }
+.ms-section { display: flex; align-items: center; gap: 12px; margin: 28px 2px 14px; }
+.ms-section span { background: #594583; color: white; border-radius: 10px; padding: 5px 10px; font-size: 13px; font-weight: 850; }
+.ms-section h2 { margin: 0; font-size: 21px; font-weight: 850; color: var(--ms-ink); }
+.ms-audio, .ms-settings > div {
+  border-radius: 22px !important;
+  border: 1px solid var(--ms-border) !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, .15) !important;
+  background: var(--ms-surface) !important;
+}
+.ms-input-row .ms-audio { min-height: 225px; }
+.ms-settings > div { padding: 14px !important; }
+.ms-settings input[type=range] { accent-color: var(--ms-pink); }
+.ms-actions { margin-top: 23px; align-items: stretch; }
+.ms-submit {
+  min-height: 62px;
+  border: 0 !important;
+  border-radius: 18px !important;
+  background: linear-gradient(100deg, #b34382, #7154c3) !important;
+  color: white !important;
+  font-size: 19px !important;
+  font-weight: 850 !important;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, .24) !important;
+}
+.ms-submit:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.ms-stop { min-height: 62px; max-width: 120px; border-radius: 18px !important; }
+.ms-result-title { margin-top: 38px; }
+.ms-result-title span { background: #286a72; }
+@media (max-width: 760px) {
+  .gradio-container { padding: 12px !important; }
+  .ms-hero { padding: 36px 24px; border-radius: 24px; }
+  .ms-hero:after { right: -30px; }
+  .ms-stop { max-width: 90px; }
+}

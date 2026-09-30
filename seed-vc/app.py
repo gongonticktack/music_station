@@ -45,29 +45,45 @@ def load_v2_models(args):
 
 
 # Wrapper functions for GPU decoration
-def convert_voice_v1_wrapper(source_audio_path, target_audio_path, diffusion_steps=10,
-                             length_adjust=1.0, inference_cfg_rate=0.7, f0_condition=False,
-                             auto_f0_adjust=True, pitch_shift=0, stream_output=True):
+def convert_voice_v1_wrapper(source_audio_path, target_audio_path, diffusion_steps=30,
+                             inference_cfg_rate=0.9, pitch_shift=0,
+                             progress=gr.Progress(track_tqdm=False)):
     """
     Wrapper function for vc_wrapper.convert_voice that can be decorated with @spaces.GPU
     """
     global vc_wrapper_v1
     from seed_vc_wrapper import SeedVCWrapper
+    if not source_audio_path or not target_audio_path:
+        raise gr.Error("変換元と参照音声の両方を選んでください。")
+
+    progress(0.02, desc="モデルを準備しています")
     if vc_wrapper_v1 is None:
         vc_wrapper_v1 = SeedVCWrapper()
 
-    # Use yield from to properly handle the generator
-    yield from vc_wrapper_v1.convert_voice(
+    progress(0.08, desc="音声を解析しています")
+
+    def update_progress(chunk, total_chunks, step, total_steps):
+        completed_steps = chunk * total_steps + step
+        all_steps = total_chunks * total_steps
+        progress(0.12 + 0.80 * completed_steps / all_steps,
+                 desc=f"音声を変換しています {completed_steps}/{all_steps} ステップ")
+
+    for _, full_audio in vc_wrapper_v1.convert_voice(
         source=source_audio_path,
         target=target_audio_path,
         diffusion_steps=diffusion_steps,
-        length_adjust=length_adjust,
+        length_adjust=1.0,
         inference_cfg_rate=inference_cfg_rate,
-        f0_condition=f0_condition,
-        auto_f0_adjust=auto_f0_adjust,
+        f0_condition=True,
+        auto_f0_adjust=True,
         pitch_shift=pitch_shift,
-        stream_output=stream_output
-    )
+        stream_output=True,
+        progress_callback=update_progress,
+    ):
+        if full_audio is not None:
+            progress(0.96, desc="出力を仕上げています")
+            yield full_audio
+    progress(1.0, desc="変換が完了しました")
 
 
 def convert_voice_v2_wrapper(source_audio_path, target_audio_path, diffusion_steps=30,
@@ -99,58 +115,43 @@ def convert_voice_v2_wrapper(source_audio_path, target_audio_path, diffusion_ste
 
 
 def create_v1_interface():
-    # Set up Gradio interface
-    description = (
-        "元の音声を、参照音声の声質に変換します。音声を2つ選び、下の「変換する」を押してください。<br>"
-        "参照音声が25秒を超える場合は、自動的に25秒まで切り詰めます。"
-        "元の音声と参照音声の合計が30秒を超える場合は、元の音声を分割して処理します。<br>"
-        "詳しくは[Seed-VCの説明](https://github.com/Plachtaa/seed-vc)をご覧ください。")
+    with gr.Blocks() as app:
+        gr.HTML("""<section class="ms-hero">
+          <div class="ms-eyebrow">✦ 声を、もっと自由に ✦</div>
+          <h1>Music <span>Station</span><span class="ms-sparkle">✳</span></h1>
+          <p>声を重ねて、新しいサウンドへ。変換元と参照音声を選んでスタート。</p>
+        </section>""")
 
-    inputs = [
-        gr.Audio(type="filepath", label="変換元の音声"),
-        gr.Audio(type="filepath", label="変換先の声のサンプル（参照音声）"),
-        gr.Slider(minimum=1, maximum=200, value=10, step=1, label="生成ステップ数",
-                  info="標準は10。高音質にしたい場合は50〜100を試してください。処理時間も長くなります。"),
-        gr.Slider(minimum=0.5, maximum=2.0, step=0.1, value=1.0, label="音声の長さ倍率",
-                  info="1.0が元の長さです。小さくすると短く、大きくすると長くなります。"),
-        gr.Slider(minimum=0.0, maximum=1.0, step=0.1, value=0.7, label="変換の調整値（CFG）",
-                  info="通常は0.7のままで使えます。出力の傾向を少し調整します。"),
-        gr.Checkbox(label="歌声変換モード（F0を使用）", value=False,
-                    info="歌声を変換するときは有効にしてください。"),
-        gr.Checkbox(label="音程を参照音声に合わせる", value=True,
-                    info="歌声変換モードが有効な場合に、音程を大まかに合わせます。"),
-        gr.Slider(label="音程の移動（半音）", minimum=-24, maximum=24, step=1, value=0,
-                  info="歌声変換モードが有効な場合だけ適用されます。"),
-    ]
+        with gr.Row(equal_height=True, elem_classes="ms-input-row"):
+            source = gr.Audio(type="filepath", sources=["upload", "microphone"],
+                              label="01 変換元の音声", elem_classes="ms-audio")
+            reference = gr.Audio(type="filepath", sources=["upload", "microphone"],
+                                 label="02 参照音声", elem_classes="ms-audio")
 
-    examples = [
-        ["examples/source/yae_0.wav", "examples/reference/dingzhen_0.wav", 25, 1.0, 0.7, False, True, 0],
-        ["examples/source/jay_0.wav", "examples/reference/azuma_0.wav", 25, 1.0, 0.7, True, True, 0],
-        ["examples/source/Wiz Khalifa,Charlie Puth - See You Again [vocals]_[cut_28sec].wav",
-         "examples/reference/teio_0.wav", 100, 1.0, 0.7, True, False, 0],
-        ["examples/source/TECHNOPOLIS - 2085 [vocals]_[cut_14sec].wav",
-         "examples/reference/trump_0.wav", 50, 1.0, 0.7, True, False, -12],
-    ]
+        gr.HTML("<div class='ms-section'><span>03</span><h2>サウンドを調整</h2></div>")
+        with gr.Row(elem_classes="ms-settings"):
+            steps = gr.Slider(1, 200, value=30, step=1, label="生成ステップ数",
+                              info="増やすと精細になりますが、処理時間も長くなります。")
+            cfg = gr.Slider(0.0, 1.0, value=0.9, step=0.05, label="変換調整",
+                            info="上げると参照音声の特徴を強めに反映します。")
+            pitch = gr.Slider(-24, 24, value=0, step=1, label="音程調整",
+                              info="自動で合わせた音程を半音単位で動かします。")
 
-    outputs = [
-        gr.Audio(label="変換結果の試聴（MP3）", streaming=False, format='mp3'),
-        gr.Audio(label="変換結果の保存（WAV）", streaming=False, format='wav')
-    ]
+        with gr.Row(elem_classes="ms-actions"):
+            submit = gr.Button("✦ 変換する", variant="primary", elem_classes="ms-submit")
+            stop = gr.Button("中止", variant="secondary", elem_classes="ms-stop")
 
-    return gr.Interface(
-        fn=convert_voice_v1_wrapper,
-        description=description,
-        inputs=inputs,
-        outputs=outputs,
-        title="Seed-VC 声・歌声変換",
-        examples=examples,
-        example_labels=["声の変換例", "歌声の変換例 1", "歌声の変換例 2", "歌声の変換例 3"],
-        cache_examples=False,
-        flagging_mode="never",
-        submit_btn="変換する",
-        stop_btn="中止する",
-        clear_btn="入力を消去",
-    )
+        gr.HTML("<div class='ms-section ms-result-title'><span>04</span><h2>完成したサウンド</h2></div>")
+        with gr.Row(elem_classes="ms-output-row"):
+            wav = gr.Audio(label="変換結果を試聴・保存（WAV）", streaming=False,
+                           format="wav", elem_classes="ms-audio")
+
+        event = submit.click(convert_voice_v1_wrapper,
+                             inputs=[source, reference, steps, cfg, pitch],
+                             outputs=wav, api_name="predict",
+                             show_progress="full", concurrency_limit=1)
+        stop.click(fn=None, cancels=[event], queue=False)
+    return app
 
 
 def create_v2_interface():
@@ -239,8 +240,9 @@ def main(args):
         "<script>Object.defineProperty(navigator, 'language', "
         "{configurable: true, get: () => 'ja'});</script>"
     )
-    with gr.Blocks(title="Seed-VC 音声変換", head=japanese_ui) as demo:
-        gr.Markdown("# Seed-VC 音声変換")
+    with gr.Blocks(title="Music Station", head=japanese_ui,
+                   theme=gr.themes.Soft(primary_hue="pink", secondary_hue="violet"),
+                   css_paths="music_station.css", show_api=False) as demo:
 
         if len(interfaces) > 1:
             gr.Markdown("使いたい変換方法を選んでください。")
@@ -254,6 +256,7 @@ def main(args):
             for _, interface in interfaces:
                 interface.render()
 
+    demo.queue(default_concurrency_limit=1)
     # Launch the combined interface
     demo.launch(inbrowser=True, server_name="127.0.0.1", server_port=7860)
 

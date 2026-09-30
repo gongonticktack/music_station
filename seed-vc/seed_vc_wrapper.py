@@ -315,7 +315,7 @@ class SeedVCWrapper:
     @torch.inference_mode()
     def convert_voice(self, source, target, diffusion_steps=10, length_adjust=1.0,
                      inference_cfg_rate=0.7, f0_condition=False, auto_f0_adjust=True, 
-                     pitch_shift=0, stream_output=True):
+                     pitch_shift=0, stream_output=True, progress_callback=None):
         """
         Convert both timbre and voice from source to target.
         
@@ -420,7 +420,9 @@ class SeedVCWrapper:
         
         # Process in chunks for streaming
         max_source_window = max_context_window - mel2.size(2)
+        total_chunks = (cond.size(1) + max_source_window - 1) // max_source_window
         processed_frames = 0
+        completed_chunks = 0
         generated_wave_chunks = []
         previous_chunk = None
         
@@ -431,12 +433,18 @@ class SeedVCWrapper:
             cat_condition = torch.cat([prompt_condition, chunk_cond], dim=1)
             
             with torch.autocast(device_type=self.device.type, dtype=torch.float16):
+                step_callback = None
+                if progress_callback is not None:
+                    step_callback = lambda step: progress_callback(
+                        completed_chunks, total_chunks, step, diffusion_steps
+                    )
                 # Voice Conversion
                 vc_target = inference_module.cfm.inference(
                     cat_condition,
                     torch.LongTensor([cat_condition.size(1)]).to(mel2.device),
                     mel2, style2, None, diffusion_steps,
-                    inference_cfg_rate=inference_cfg_rate
+                    inference_cfg_rate=inference_cfg_rate,
+                    progress_callback=step_callback
                 )
                 vc_target = vc_target[:, :, mel2.size(-1):]
             
@@ -446,6 +454,7 @@ class SeedVCWrapper:
                 vc_wave, processed_frames, vc_target, overlap_wave_len, 
                 generated_wave_chunks, previous_chunk, is_last_chunk, stream_output, sr
             )
+            completed_chunks += 1
             
             if stream_output and mp3_bytes is not None:
                 yield mp3_bytes, full_audio
@@ -458,4 +467,4 @@ class SeedVCWrapper:
         if not stream_output:
             return np.concatenate(generated_wave_chunks)
         
-        return None, None 
+        return None, None
