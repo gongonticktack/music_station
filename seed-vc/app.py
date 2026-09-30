@@ -242,7 +242,7 @@ def main(args):
     )
     with gr.Blocks(title="Music Station", head=japanese_ui,
                    theme=gr.themes.Soft(primary_hue="pink", secondary_hue="violet"),
-                   css_paths="music_station.css", show_api=False) as demo:
+                   css_paths="music_station.css") as demo:
 
         if len(interfaces) > 1:
             gr.Markdown("使いたい変換方法を選んでください。")
@@ -258,7 +258,8 @@ def main(args):
 
     demo.queue(default_concurrency_limit=1)
     # Launch the combined interface
-    demo.launch(inbrowser=True, server_name="127.0.0.1", server_port=7860)
+    demo.launch(inbrowser=True, server_name="127.0.0.1", server_port=7860,
+                show_api=False)
 
 
 if __name__ == "__main__":
