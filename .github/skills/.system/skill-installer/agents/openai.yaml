@@ -1,0 +1,5 @@
+interface:
+  display_name: "スキルインストーラー"
+  short_description: "openai/skills などのリポジトリから厳選スキルをインストール"
+  icon_small: "./assets/skill-installer-small.svg"
+  icon_large: "./assets/skill-installer.png"

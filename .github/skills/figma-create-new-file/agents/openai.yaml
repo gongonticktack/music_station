@@ -1,0 +1,14 @@
+interface:
+  display_name: "新しい Figma ファイルの作成"
+  short_description: "新しい空の Figma または FigJam ファイルを作る"
+  icon_small: "./assets/figma-small.svg"
+  icon_large: "./assets/figma.png"
+  default_prompt: "$figma-create-new-file で新しい Figma ファイルまたは FigJam ボードを作成してください。必要なら先にプランを特定してください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "figma"
+      description: "Figma MCP サーバー"
+      transport: "streamable_http"
+      url: "https://mcp.figma.com/mcp"

@@ -1,0 +1,14 @@
+interface:
+  display_name: "Code Connect コンポーネント"
+  short_description: "Code Connect で Figma コンポーネントをコードに対応付ける"
+  icon_small: "./assets/figma-small.svg"
+  icon_large: "./assets/figma.png"
+  default_prompt: "$figma-code-connect-components でこれらの Figma ノードに対応するローカルコンポーネントを探し、Code Connect の対応付けを提案してください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "figma"
+      description: "Figma MCP サーバー"
+      transport: "streamable_http"
+      url: "https://mcp.figma.com/mcp"

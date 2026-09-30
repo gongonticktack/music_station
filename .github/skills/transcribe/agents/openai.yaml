@@ -1,0 +1,6 @@
+interface:
+  display_name: "音声文字起こし"
+  short_description: "OpenAI を使用して音声を文字起こしします。要求された場合は、話者の識別も行えます。結果を確実に再現できるよう、同梱の CLI を優先して使用してください。"
+  icon_small: "./assets/transcribe-small.svg"
+  icon_large: "./assets/transcribe.png"
+  default_prompt: "この音声または動画を文字起こしし、可能であれば話者ラベルを付けて、読みやすい要約を作成してください。"

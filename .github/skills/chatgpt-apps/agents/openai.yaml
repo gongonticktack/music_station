@@ -1,0 +1,13 @@
+interface:
+  display_name: "ChatGPT Apps"
+  short_description: "ChatGPT アプリを構築して雛形を作成する"
+  default_prompt: "$chatgpt-apps を使って、まずアプリの類型を判定し、コードを生成する前に最新の OpenAI Apps SDK ドキュメントを取得してください。アプリがコネクター型または同期指向の場合は、標準の `search` および `fetch` ツールを既定で使用してください。適合するものがあれば最も近い上流のサンプルを基に調整し、最小限の `@modelcontextprotocol/ext-apps` スターターの場合に限り、ローカルの Node 雛形を使用してください。動作するリポジトリ構成を作成したうえで、実際に実行した検証内容を報告してください。"
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "openaiDeveloperDocs"
+      description: "最新の Apps SDK ガイダンスを提供する OpenAI 開発者ドキュメント MCP サーバー"
+      transport: "streamable_http"
+      url: "https://developers.openai.com/mcp"
+policy:
+  allow_implicit_invocation: true

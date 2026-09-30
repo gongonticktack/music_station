@@ -1,0 +1,6 @@
+interface:
+  display_name: "スクリーンショットの撮影"
+  short_description: "スクリーンショットを撮影する"
+  icon_small: "./assets/screenshot-small.svg"
+  icon_large: "./assets/screenshot.png"
+  default_prompt: "この作業に適した対象、領域、出力先を選び、スクリーンショットを撮影してください。"

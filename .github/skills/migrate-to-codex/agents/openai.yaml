@@ -1,0 +1,3 @@
+interface:
+  display_name: "Codex への移行"
+  short_description: "対応する指示ファイル、スキル、エージェント、設定を Codex に移行"

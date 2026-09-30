@@ -1,0 +1,14 @@
+interface:
+  display_name: "デザインシステムの規則を作成"
+  short_description: "コードベース向けのデザインシステム規則を生成する"
+  icon_small: "./assets/figma-small.svg"
+  icon_large: "./assets/figma.png"
+  default_prompt: "$figma-create-design-system-rules でプロジェクト固有の Figma デザインシステム規則を生成し、AGENTS.md の節を用意してください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "figma"
+      description: "Figma MCP サーバー"
+      transport: "streamable_http"
+      url: "https://mcp.figma.com/mcp"

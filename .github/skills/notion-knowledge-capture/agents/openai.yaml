@@ -1,0 +1,14 @@
+interface:
+  display_name: "Notionへのナレッジ記録"
+  short_description: "会話を構造化されたNotionページに記録"
+  icon_small: "./assets/notion-small.svg"
+  icon_large: "./assets/notion.png"
+  default_prompt: "この会話を、決定事項、アクション項目、判明している場合は担当者を含む構造化されたNotionページに記録してください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "notion"
+      description: "Notion MCPサーバー"
+      transport: "streamable_http"
+      url: "https://mcp.notion.com/mcp"

@@ -1,0 +1,14 @@
+interface:
+  display_name: "Render へのデプロイ"
+  short_description: "Blueprint または MCP を使って Render にアプリケーションをデプロイする"
+  icon_small: "./assets/render-small.svg"
+  icon_large: "./assets/render.png"
+  default_prompt: "このアプリケーションを Render にデプロイし、サービス URL、環境変数、次に確認すべき項目を提示してください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "render"
+      description: "Render MCP サーバー"
+      transport: "streamable_http"
+      url: "https://mcp.render.com/mcp"

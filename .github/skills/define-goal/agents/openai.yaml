@@ -1,0 +1,4 @@
+interface:
+  display_name: "目標の定義"
+  short_description: "明確で測定可能な目標を定める"
+  default_prompt: "$define-goal を使い、作業前にこの意図を具体的で測定可能な目標にしてください。"

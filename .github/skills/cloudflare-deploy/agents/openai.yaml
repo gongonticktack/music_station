@@ -1,0 +1,6 @@
+interface:
+  display_name: "Cloudflare へのデプロイ"
+  short_description: "Workers、Pages、プラットフォームサービスを Cloudflare にデプロイ"
+  icon_small: "./assets/cloudflare-small.svg"
+  icon_large: "./assets/cloudflare.png"
+  default_prompt: "このアプリを Cloudflare（Workers または Pages）にデプロイし、URL、設定、必要な環境変数を返してください。"

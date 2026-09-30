@@ -1,0 +1,6 @@
+interface:
+  display_name: "画像生成"
+  short_description: "Webサイトやゲームなどの画像を生成・編集"
+  icon_small: "./assets/imagegen-small.svg"
+  icon_large: "./assets/imagegen.png"
+  default_prompt: "この作業の画像素材の生成・編集には、既定で組み込みの `image_gen` ツールを使ってください。まずラスター画像が必要か確認してください。プロジェクトに既存の SVG、ベクター、コード由来の素材があり、ユーザーがその拡張や統一を望む場合は、このスキルを使わないでください。参照画像がある場合、既存画像の変更が明確に求められていない限り、参照資料として扱ってください。複数素材の依頼では、バッチ処理を独立した最上位モードとみなさず、組み込みツールを繰り返し呼び出してください。代替 CLI はユーザーが明示的に求めた場合だけ使用し、`generate-batch`、`quality`、`input_fidelity`、マスク、出力パスなどの CLI 専用設定はその経路に限定してください。"

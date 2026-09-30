@@ -1,0 +1,14 @@
+interface:
+  display_name: "Notion仕様から実装へ"
+  short_description: "Notionの仕様書を実装計画、タスク、進捗管理に変換"
+  icon_small: "./assets/notion-small.svg"
+  icon_large: "./assets/notion.png"
+  default_prompt: "このNotion仕様書を、マイルストーン、タスク、依存関係を含む実装計画に変換してください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "notion"
+      description: "Notion MCPサーバー"
+      transport: "streamable_http"
+      url: "https://mcp.notion.com/mcp"

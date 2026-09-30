@@ -1,0 +1,4 @@
+interface:
+  display_name: "スキル作成"
+  short_description: "スキルを作成または更新"
+  default_prompt: "$skill-creator を使い、リポジトリを読んで、プロジェクトの新しいコンポーネントの作成を支援するスキルを作成してください。"

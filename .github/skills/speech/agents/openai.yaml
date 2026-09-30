@@ -1,0 +1,6 @@
+interface:
+  display_name: "音声生成スキル"
+  short_description: "テキストからナレーション音声を生成"
+  icon_small: "./assets/speech-small.svg"
+  icon_large: "./assets/speech.png"
+  default_prompt: "このテキストに適した声のスタイル、ペース、出力形式で音声を生成してください。"

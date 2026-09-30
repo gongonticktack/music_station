@@ -1,0 +1,32 @@
+# Music Station / Seed-VC
+
+Windows上で[Seed-VC公式実装](https://github.com/Plachtaa/seed-vc)の音声変換をブラウザから使うためのセットアップです。公式ソースは [`seed-vc/`](seed-vc/) に配置しています。既定ではV1の声・歌声変換画面を起動します。
+
+## 起動
+
+1. ルートの **`start.bat`** をダブルクリックします。
+2. 初回はPython 3.10、CUDA対応PyTorch、Web用パッケージ、FFmpeg、モデル重みをこのフォルダー内へ準備します。モデルはHugging Faceから取得されます。数GBの空き容量と通信が必要です。
+3. ブラウザが開いたら、変換したい音声を **変換元の音声**、変換先の声のサンプルを **変換先の声のサンプル（参照音声）** に指定して **変換する** を押します。歌声では **歌声変換モード（F0を使用）** を有効にします。
+
+ブラウザを手動で開く場合は <http://127.0.0.1:7860/> です。起動したコマンド画面を閉じるか `Ctrl+C`、または **`Stop Seed-VC.cmd`** で停止します。起動ログは `.logs/seed-vc.log` に保存されます。すでにSeed-VCが起動している状態で `start.bat` を実行すると、既存のSeed-VCを停止してから起動し直します。
+
+## 構成
+
+| 機能 | 実装 | 役割 |
+| --- | --- | --- |
+| Web画面 | `seed-vc/app.py`、Gradio 5.23 | 音声アップロード、変換設定、再生・保存 |
+| 音声変換 | `seed-vc/seed_vc_wrapper.py`、Seed-VC V1、PyTorch CUDA | 声・歌声を参照音声の声質へ変換 |
+| 音声処理 | Librosa、Torchaudio、BigVGAN、FFmpeg | 入力処理と音声出力 |
+| ローカル起動 | `start-seed-vc.ps1`、`requirements-web.txt` | Python・依存の導入と実行前確認 |
+
+Python環境、依存キャッシュ、Hugging Faceモデルは `.tools/` と `.venv/` に保存されます。Seed-VCが直接取得するチェックポイントは `seed-vc/checkpoints/` に保存されます。アップロードした音声や生成結果はGradioの一時ファイルとしてローカルに置かれ、ブラウザから結果を保存できます。モデル取得先はHugging Face、アプリの待受はローカルの `127.0.0.1:7860` です。
+
+## 必要環境と復旧
+
+- Windows 64-bit、NVIDIA GPUとCUDA対応ドライバー、インターネット接続。動作確認機はRTX 5070 Tiです。
+- ローカルの `python.org` 署名付きPython 3.10.11を使用し、システムのPATHは変更しません。
+- 起動時に依存一覧が変わっていれば再導入します。失敗した場合は `.logs/seed-vc.log` を確認し、通信を復旧して起動し直してください。
+- モデルの初回取得に失敗した場合は、起動し直すとダウンロードを再開できます。モデルのキャッシュを手動で削除した場合は `.tools/models-ready.stamp` も削除して起動し直してください。
+- 7860番ポートが使用中なら、そのアプリを停止してから起動してください。
+
+Seed-VC本体のライセンスは `seed-vc/LICENSE` を参照してください。

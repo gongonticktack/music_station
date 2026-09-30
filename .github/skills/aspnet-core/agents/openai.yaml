@@ -1,0 +1,5 @@
+interface:
+  display_name: "ASP.NET Core"
+  short_description: "[Windows のみ] ASP.NET Core Web アプリの構築とレビュー"
+  icon_large: "./assets/dotnet-logo.png"
+  default_prompt: "新しい $aspnet-core Web サイトを作成してください。"

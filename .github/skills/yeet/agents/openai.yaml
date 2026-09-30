@@ -1,0 +1,6 @@
+interface:
+  display_name: "Yeet"
+  short_description: "ステージング、コミット、PR 作成を行う"
+  icon_small: "./assets/yeet-small.svg"
+  icon_large: "./assets/yeet.png"
+  default_prompt: "このブランチをレビューできる状態にしてください。意図した変更をステージし、的を絞ったコミットを作り、PR を開いてください。"

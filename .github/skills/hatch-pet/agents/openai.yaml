@@ -1,0 +1,4 @@
+interface:
+  display_name: "ハッチペット"
+  short_description: "さまざまなスタイルのCodexペットを孵化"
+  default_prompt: "$hatch-pet を使って、コンセプト、企業ブランド、または参考画像から、ペットに適したあらゆるスタイルでCodex互換のアニメーションペットを作成します。"

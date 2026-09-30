@@ -1,0 +1,6 @@
+interface:
+  display_name: "プラグイン作成"
+  short_description: "プラグインとマーケットプレイスの雛形を作成"
+  default_prompt: "$plugin-creator を使い、仮値を含む plugin.json、必要な追加構成、marketplace.json の登録項目を持つプラグインの雛形を作成してください。"
+  icon_small: "./assets/plugin-creator-small.svg"
+  icon_large: "./assets/plugin-creator.png"

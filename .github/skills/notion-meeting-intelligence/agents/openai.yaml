@@ -1,0 +1,14 @@
+interface:
+  display_name: "Notion会議インテリジェンス"
+  short_description: "Notionの情報を活用して会議を準備し、目的に合わせたアジェンダを作成"
+  icon_small: "./assets/notion-small.svg"
+  icon_large: "./assets/notion.png"
+  default_prompt: "Notionの情報をもとに、この会議の概要、アジェンダ、必要な決定事項、未解決の質問を準備してください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "notion"
+      description: "Notion MCPサーバー"
+      transport: "streamable_http"
+      url: "https://mcp.notion.com/mcp"

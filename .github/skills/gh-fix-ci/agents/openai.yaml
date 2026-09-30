@@ -1,0 +1,6 @@
+interface:
+  display_name: "GitHub CI の修正"
+  short_description: "失敗した GitHub Actions CI を調査する"
+  icon_small: "./assets/github-small.svg"
+  icon_large: "./assets/github.png"
+  default_prompt: "このリポジトリで失敗している GitHub Actions のチェックを調べ、根本原因を要約し、的を絞った修正計画を提案してください。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "CLI 作成ツール"
+  short_description: "Codex 用の CLI を構築"
+  default_prompt: "この資料を基に組み合わせ可能な CLI を作成し、PATH から実行できるようにインストールしてください。ソースフォルダーの外から動作をテストし、Codex にその CLI を使うべき場面を教える補助スキルも作成してください。"

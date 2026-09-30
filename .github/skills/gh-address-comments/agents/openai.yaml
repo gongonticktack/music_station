@@ -1,0 +1,6 @@
+interface:
+  display_name: "GitHub コメント対応"
+  short_description: "GitHub PR のレビューコメントに対応する"
+  icon_small: "./assets/github-small.svg"
+  icon_large: "./assets/github.png"
+  default_prompt: "このブランチの GitHub PR に付いた対応可能なレビューコメントをすべて処理し、変更内容を要約してください。"

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Playwright Interactive"
+  short_description: "永続的なブラウザーとElectronのQA"
+  icon_small: "./assets/playwright-small.svg"
+  icon_large: "./assets/playwright.png"
+  default_prompt: "永続的なPlaywrightセッションでローカルのWebアプリまたはElectronアプリをデバッグし、QAの証拠を記録するには、$playwright-interactive を使用してください。"

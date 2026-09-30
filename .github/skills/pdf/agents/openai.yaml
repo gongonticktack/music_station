@@ -1,0 +1,5 @@
+interface:
+  display_name: "PDF スキル"
+  short_description: "PDF を作成、編集、レビューする"
+  icon_large: "./assets/pdf.png"
+  default_prompt: "この PDF を作成、編集、またはレビューし、主な成果や変更を要約してください。"

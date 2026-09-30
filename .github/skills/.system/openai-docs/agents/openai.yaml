@@ -1,0 +1,14 @@
+interface:
+  display_name: "OpenAI ドキュメント"
+  short_description: "OpenAI の公式資料、Codex の仕様、モデル移行を参照"
+  icon_small: "./assets/openai-small.svg"
+  icon_large: "./assets/openai.png"
+  default_prompt: "公式ドキュメントの確認、Codex 自体やその画面・機能に関する質問、モデル選択・移行、プロンプトの更新には OpenAI ドキュメントを使ってください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "openaiDeveloperDocs"
+      description: "OpenAI 開発者ドキュメントの MCP サーバー"
+      transport: "streamable_http"
+      url: "https://developers.openai.com/mcp"

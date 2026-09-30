@@ -1,0 +1,14 @@
+interface:
+  display_name: "Figma デザインの実装"
+  short_description: "Figma のデザインを本番用コードにする"
+  icon_small: "./assets/figma-small.svg"
+  icon_large: "./assets/figma.png"
+  default_prompt: "$figma-implement-design でこの Figma デザインをコードベースに実装し、レイアウト、状態、レスポンシブな動作を一致させてください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "figma"
+      description: "Figma MCP サーバー"
+      transport: "streamable_http"
+      url: "https://mcp.figma.com/mcp"

@@ -1,0 +1,14 @@
+interface:
+  display_name: "Notion調査・ドキュメント作成"
+  short_description: "Notionのコンテンツを調査し、ブリーフやレポートを作成"
+  icon_small: "./assets/notion-small.svg"
+  icon_large: "./assets/notion.png"
+  default_prompt: "Notionでこのトピックを調査し、明確な提言を含む、出典付きのブリーフを作成してください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "notion"
+      description: "Notion MCPサーバー"
+      transport: "streamable_http"
+      url: "https://mcp.notion.com/mcp"

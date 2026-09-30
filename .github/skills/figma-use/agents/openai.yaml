@@ -1,0 +1,14 @@
+interface:
+  display_name: "use_figma"
+  short_description: "use_figma を呼び出す前に必要なルールを読み込む"
+  icon_small: "./assets/figma-small.svg"
+  icon_large: "./assets/figma.png"
+  default_prompt: "$figma-use を使い、use_figma を呼び出す前にそのルールに従ってください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "figma"
+      description: "Figma MCP サーバー"
+      transport: "streamable_http"
+      url: "https://mcp.figma.com/mcp"

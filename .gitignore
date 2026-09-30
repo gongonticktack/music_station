@@ -1,0 +1,5 @@
+.tools/
+.venv/
+.logs/
+seed-vc/checkpoints/
+seed-vc/flagged/

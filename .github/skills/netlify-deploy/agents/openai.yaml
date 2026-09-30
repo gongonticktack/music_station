@@ -1,0 +1,6 @@
+interface:
+  display_name: "Netlify へのデプロイ"
+  short_description: "Netlify CLI で Web プロジェクトをデプロイする"
+  icon_small: "./assets/netlify-small.svg"
+  icon_large: "./assets/netlify.png"
+  default_prompt: "このプロジェクトを Netlify にデプロイし、プレビュー URL、ビルド設定、必要な修正を報告してください。"

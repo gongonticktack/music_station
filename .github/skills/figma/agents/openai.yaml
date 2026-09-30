@@ -1,0 +1,14 @@
+interface:
+  display_name: "Figma"
+  short_description: "デザインをコードに変換する作業で Figma MCP を使う"
+  icon_small: "./assets/figma-small.svg"
+  icon_large: "./assets/figma.png"
+  default_prompt: "$figma で対象デザインを確認し、実装可能な UI の判断に落とし込んでください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "figma"
+      description: "Figma MCP サーバー"
+      transport: "streamable_http"
+      url: "https://mcp.figma.com/mcp"

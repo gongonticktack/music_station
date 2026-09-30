@@ -1,0 +1,14 @@
+interface:
+  display_name: "Figmaデザインを生成"
+  short_description: "デザインシステムのコンポーネントを使って画面を作成または更新"
+  icon_small: "./assets/figma-small.svg"
+  icon_large: "./assets/figma.png"
+  default_prompt: "$figma-generate-design を使って、既存のデザインシステムのコンポーネントを活用し、視覚的な再現性を高く保ちながら、この画面をFigmaで作成または更新してください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "figma"
+      description: "Figma MCPサーバー"
+      transport: "streamable_http"
+      url: "https://mcp.figma.com/mcp"

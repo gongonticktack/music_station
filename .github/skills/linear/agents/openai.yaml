@@ -1,0 +1,14 @@
+interface:
+  display_name: "Linear"
+  short_description: "Codex で Linear の課題を管理する"
+  icon_small: "./assets/linear-small.svg"
+  icon_large: "./assets/linear.png"
+  default_prompt: "Linear の情報を使って、この作業に関係する課題を整理・更新し、次の対応を明確にしてください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "linear"
+      description: "Linear MCP サーバー"
+      transport: "streamable_http"
+      url: "https://mcp.linear.app/mcp"

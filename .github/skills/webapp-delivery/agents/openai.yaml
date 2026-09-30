@@ -1,0 +1,3 @@
+interface:
+  display_name: "ローカル Web アプリの引き渡し"
+  short_description: "ローカル Web アプリを文書化し、起動できるようにする"

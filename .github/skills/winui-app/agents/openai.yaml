@@ -1,0 +1,5 @@
+interface:
+  display_name: "WinUI アプリ"
+  short_description: "[Windows のみ] ネイティブ WinUI 3 アプリを構築"
+  icon_large: "./assets/winui.png"
+  default_prompt: "新しい $winui-app デスクトップアプリを作成してください。"

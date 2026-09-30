@@ -1,0 +1,14 @@
+interface:
+  display_name: "Figmaライブラリを生成"
+  short_description: "Figmaでデザインシステムライブラリを構築または更新する"
+  icon_small: "./assets/figma-small.svg"
+  icon_large: "./assets/figma.png"
+  default_prompt: "コードベースをもとに、トークン、コンポーネント、ドキュメントを含むFigmaデザインシステムライブラリを構築または更新するには、$figma-generate-library を使用してください。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "figma"
+      description: "Figma MCPサーバー"
+      transport: "streamable_http"
+      url: "https://mcp.figma.com/mcp"

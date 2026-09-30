@@ -1,0 +1,6 @@
+interface:
+  display_name: "Sentry（読み取り専用の監視）"
+  short_description: "Sentry の監視データを読み取り専用で調べる"
+  icon_small: "./assets/sentry-small.svg"
+  icon_large: "./assets/sentry.png"
+  default_prompt: "Sentry の読み取り専用データでこの問題を調査し、考えられる根本原因、影響、次の対応を報告してください。"
