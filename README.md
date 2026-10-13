@@ -1,3 +1,5 @@
+💻 **ローカルWebアプリ：[Music Stationを開く](http://127.0.0.1:7860/)** — `start.bat`で起動したPC内で利用できます。
+
 # Music Station / Seed-VC
 
 ## 概要
